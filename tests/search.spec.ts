@@ -4,16 +4,16 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
 });
 
-test('Realizar una busqueda que no tenga resultados', async ({ page }) => {
-  await page.getByRole('button').click();
+test.only('Realizar una busqueda que no tenga resultados', async ({ page }) => {
+  await page.getByRole('button',{name:"Search"}).click();
 
   await page.getByPlaceholder('Search docs').click();
 
   await page.getByPlaceholder('Search docs').fill('hascontent');
 
-  expect(page.locator('.DocSearch-NoResults p')).toBeVisible();
+  await expect(page.locator('.DocSearch-NoResults p')).toBeVisible();
 
-  expect(page.locator('.DocSearch-NoResults p')).toHaveText('No results for hascontent');
+  await expect(page.locator('.DocSearch-NoResults p')).toHaveText('No results for "hascontent"');
 
 })
 
